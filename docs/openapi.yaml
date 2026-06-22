@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Wortwerk AI API
+  version: 0.2.0
+  description: Internal API routes used by the Wortwerk German vocabulary trainer.
+servers:
+  - url: https://your-domain.example
+paths:
+  /api/normalize:
+    post:
+      summary: Normalize imported vocabulary cards using OpenAI.
+      operationId: normalizeCards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [cards]
+              properties:
+                cards:
+                  type: array
+                  minItems: 1
+                  maxItems: 40
+                  items:
+                    $ref: '#/components/schemas/InputCard'
+      responses:
+        '200':
+          description: Normalized cards.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [cards]
+                properties:
+                  cards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NormalizedCard'
+        '400':
+          description: Invalid request or invalid model response.
+        '500':
+          description: Missing server configuration.
+  /api/check-answer:
+    post:
+      summary: Check a learner answer using OpenAI.
+      operationId: checkAnswer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckAnswerRequest'
+      responses:
+        '200':
+          description: Answer evaluation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckAnswerResponse'
+components:
+  schemas:
+    InputCard:
+      type: object
+      required: [german, ukrainian, type]
+      properties:
+        german:
+          type: string
+        ukrainian:
+          type: string
+        type:
+          type: string
+        grammar:
+          type: string
+        raw:
+          type: string
+        correctedGerman:
+          type: string
+        correctionNote:
+          type: string
+    NormalizedCard:
+      allOf:
+        - $ref: '#/components/schemas/InputCard'
+        - type: object
+          required: [exampleDe, exampleUa, topic, level, commonMistakes]
+          properties:
+            exampleDe:
+              type: string
+            exampleUa:
+              type: string
+            topic:
+              type: string
+            level:
+              type: string
+              enum: [A1, A2, B1, B2, C1, C2]
+            commonMistakes:
+              type: array
+              items:
+                type: string
+    CheckAnswerRequest:
+      type: object
+      required: [prompt, expected, answer, exerciseType]
+      properties:
+        prompt:
+          type: string
+        expected:
+          type: string
+        answer:
+          type: string
+        grammar:
+          type: string
+        exerciseType:
+          type: string
+          enum: [de_to_ua, ua_to_de, cloze, production]
+    CheckAnswerResponse:
+      type: object
+      required: [isCorrect, score, feedback]
+      properties:
+        isCorrect:
+          type: boolean
+        score:
+          type: number
+        feedback:
+          type: string
+        errorType:
+          type:
+            - string
+            - 'null'
+        betterAnswer:
+          type:
+            - string
+            - 'null'

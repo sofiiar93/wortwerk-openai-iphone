@@ -1,0 +1,225 @@
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --text: #171717;
+  --muted: #666666;
+  --line: #e5e5e0;
+  --accent: #111111;
+  --danger: #8b1e1e;
+  --ok: #1f6f43;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+
+.app-shell { max-width: 1120px; margin: 0 auto; padding: 24px; }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0 24px; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.nav-links a { border: 1px solid var(--line); background: var(--surface); padding: 8px 12px; border-radius: 999px; color: var(--muted); }
+.logo { font-weight: 800; letter-spacing: -0.03em; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+.card h2, .card h3 { margin-top: 0; }
+.muted { color: var(--muted); }
+.hero { padding: 36px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 18px; }
+.hero h1 { font-size: clamp(36px, 7vw, 72px); line-height: .92; margin: 0 0 16px; letter-spacing: -0.06em; }
+.hero p { max-width: 760px; font-size: 18px; color: var(--muted); }
+
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 700; }
+.button.secondary { background: var(--surface); color: var(--text); border-color: var(--line); }
+.button.danger { background: var(--danger); border-color: var(--danger); }
+.button:disabled { opacity: .55; cursor: not-allowed; }
+
+.input, .textarea { width: 100%; border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 12px 14px; outline: none; }
+.textarea { min-height: 240px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.label { display: block; font-weight: 700; margin-bottom: 8px; }
+.form-row { margin-bottom: 14px; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.badge { display: inline-flex; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: #fff; font-size: 12px; }
+.answer { white-space: pre-wrap; background: #fafafa; border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+.ok { color: var(--ok); font-weight: 700; }
+.danger-text { color: var(--danger); font-weight: 700; }
+
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+.table th { color: var(--muted); font-size: 13px; }
+
+@media (max-width: 720px) {
+  .app-shell { padding: 16px; }
+  .hero { padding: 24px; }
+}
+
+.install-card { margin-bottom: 18px; }
+
+@media (display-mode: standalone) {
+  body { overscroll-behavior-y: contain; }
+}
+
+@media (max-width: 720px) {
+  html, body {
+    min-height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 12px calc(18px + env(safe-area-inset-bottom));
+    overflow-x: hidden;
+  }
+
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .nav-links a {
+    min-width: 0;
+    text-align: center;
+    padding: 10px 6px;
+    font-size: 13px;
+  }
+
+  .hero,
+  .card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 18px;
+    padding: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 12vw, 54px);
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  .textarea {
+    min-height: 300px;
+    font-size: 16px;
+  }
+
+  .input {
+    font-size: 16px;
+  }
+
+  .mobile-card-table {
+    display: block;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .mobile-card-table thead {
+    display: none;
+  }
+
+  .mobile-card-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-card-table tr {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 10px 12px;
+    background: #fff;
+  }
+
+  .mobile-card-table td {
+    display: grid;
+    grid-template-columns: minmax(70px, 26%) minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    width: 100%;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .mobile-card-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .mobile-card-table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+
+  .mobile-card-table td > strong,
+  .mobile-card-table td > span,
+  .mobile-card-table td > div {
+    min-width: 0;
+  }
+
+  .mobile-card-table .mobile-primary-cell {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .mobile-card-table .mobile-primary-cell::before {
+    margin-bottom: 2px;
+  }
+}
+
+.example-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.example-block strong {
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .nav-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
